@@ -100,7 +100,6 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private boolean enableErrorLabel;
     private boolean enableFloatingLabel;
 
-
     /*
     * **********************************************************************************
     * CONSTRUCTORS
@@ -787,12 +786,13 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         }
 
         private View getHintView(final View convertView, final ViewGroup parent, final boolean isDropDownView) {
-
             final LayoutInflater inflater = LayoutInflater.from(mContext);
             final int resid = isDropDownView ? android.R.layout.simple_spinner_dropdown_item : android.R.layout.simple_spinner_item;
             final TextView textView = (TextView) inflater.inflate(resid, parent, false);
             textView.setText(hint);
-            textView.setTextColor(MaterialSpinner.this.isEnabled() ? hintColor : disabledColor);
+            if (!isDropDownView) {
+                textView.setTextColor(MaterialSpinner.this.isEnabled() ? hintColor : disabledColor);
+            }
             textView.setTag(HINT_TYPE);
             return textView;
         }
